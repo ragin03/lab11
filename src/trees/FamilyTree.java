@@ -11,9 +11,9 @@ public class FamilyTree
     
     private static class TreeNode
     {
-        private String                    name;
-        private TreeNode                parent;
-        private ArrayList<TreeNode>        children;
+        private String name;
+        private TreeNode parent;
+        private ArrayList<TreeNode> children;
         
         
         TreeNode(String name)
@@ -31,6 +31,8 @@ public class FamilyTree
         
         void addChild(TreeNode childNode)
         {
+        	    children.add(childNode);
+        	    childNode.parent = this;  
             // Add childNode to this node's children list. Also
             // set childNode's parent to this node.
         }
@@ -38,22 +40,23 @@ public class FamilyTree
         
         // Searches subtree at this node for a node
         // with the given name. Returns the node, or null if not found.
-        TreeNode getNodeWithName(String targetName)
-        {
+        TreeNode getNodeWithName(String targetName) {
             // Does this node have the target name?
-            if (?????)
+            if (this.name.equals(targetName))
                 return this;
-                    
             // No, recurse. Check all children of this node.
             for (TreeNode child: children)
             {
+            	if (child.getNodeWithName(targetName) != null) {
+            		return child.getNodeWithName(targetName);
                 // If child.getNodeWithName(targetName) returns a non-null node,
                 // then that's the node we're looking for. Return it.
+            	}
             }
-            
             // Not found anywhere.
             return null;
         }
+ 
         
         
         // Returns a list of ancestors of this TreeNode, starting with this node’s parent and
@@ -87,7 +90,7 @@ public class FamilyTree
         }
     }
 
-	private TreeNode			root;
+	private TreeNode root;
 	
 	
 	//
